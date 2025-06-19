@@ -1,6 +1,6 @@
 const sequelize = require('../config/config');
 const User = require('./user')(sequelize);
-// const Patient = require('./patient')(sequelize);
+const Patient = require('./patient')(sequelize);
 // const Doctor = require('./doctor')(sequelize);
 // const Mapping = require('./mapping')(sequelize);
 
@@ -14,7 +14,7 @@ const User = require('./user')(sequelize);
 module.exports = {
   sequelize,
   User,
-//   Patient,
+  Patient,
 //   Doctor,
 //   Mapping
 };
