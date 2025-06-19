@@ -3,7 +3,7 @@ const patientService = require('../services/patientService');
 
 exports.createPatient = async (req, res) => {
   try {
-    const patient = await patientService.createPatient(req.user.id, req.body);
+    const patient = await patientService.createPatient( req.body);
     res.status(201).json(patient);
   } catch (err) {
     res.status(400).json({ error: err.message });

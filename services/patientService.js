@@ -1,7 +1,7 @@
 const { Patient } = require('../models');
 const { ValidationError, NotFoundError,ConflictError } = require('../utils/errors');
 
-exports.createPatient = async (userId, data) => {
+exports.createPatient = async ( data) => {
   // Validate required fields
   const requiredFields = ['name', 'age', 'gender', 'contactNumber', 'address'];
   const missingFields = requiredFields.filter(field => !data[field]);
@@ -9,11 +9,9 @@ exports.createPatient = async (userId, data) => {
   if (missingFields.length > 0) {
     throw new ValidationError(`Missing required fields: ${missingFields.join(', ')}`);
   }
-
   try {
     return await Patient.create({ 
       ...data,
-      UserId: userId
     });
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
@@ -22,6 +20,8 @@ exports.createPatient = async (userId, data) => {
     if (error.name === 'SequelizeValidationError') {
       throw new ValidationError(error.errors.map(e => e.message).join(', '));
     }
+    console.log(error);
+    
     throw new Error('Failed to create patient');
   }
 };
